@@ -1,18 +1,38 @@
-alpha_list = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
-num_alpha_letters = 26
+def encrypt (key, plaintext):
+	return process(key, plaintext, 1)
 
-def encrypt (orig_key, plaintext):
-	uppercase_key = orig_key.upper()
-	uppercase_plaintext = plaintext.replace(' ', '').upper()
-	length = len(uppercase_plaintext)
-	actual_key = str(uppercase_key) + str(uppercase_plaintext)
-	actual_key = actual_key[0:length]
+def decrypt (key, ciphertext):
+	return process(key, ciphertext, -1)
 
-	encrypted_char = []
-	for i, char in enumerate(uppercase_plaintext):
-		encrypted_char.append (alpha_list[( alpha_list.index(char) + alpha_list.index(actual_key[i]) ) % num_alpha_letters])
-	result = ''.join(encrypted_char)
+def process(key, text, sign):
+	if key is "":
+		raise ValueError ("Cannot use empty key")
+	else:
+		uppercase_key = key.replace(' ', '').upper()
+		uppercase_text = text.replace(' ', '').upper()
+		if sign == 1:
+			length = len(uppercase_text)
+			actual_key = str(uppercase_key) + str(uppercase_text)
+			actual_key = actual_key[0:length]
+		else:
+			actual_key = uppercase_key
 
-	print result
+		char_in_text = []
+		extend = (ord('Z') + 1)
+		j = 0
 
-encrypt('quark', 'TAKE A COPY OFYOURPOLICYTONORMAWILCOXONTHETHIRDFLOOR'.lower())
+		for i, char in enumerate(uppercase_text):
+
+			if (sign == -1):
+				extend = 0
+				if (i >= len(key)):
+					actual_key += (char_in_text[j])
+					j += 1
+					
+			position = (ord(char) + extend + (sign * ord(actual_key[i]))) % (ord('Z') + 1)
+			if (position < ord('A')):
+				position += (extend - (sign * ord('A')))
+			char_in_text.append(chr(position))
+
+		result = ''.join(char_in_text)
+	return result

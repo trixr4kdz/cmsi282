@@ -1,26 +1,15 @@
-from random import shuffle
-import time
-
-MILLISECONDS = 1000
-
-start_time = time.time() * MILLISECONDS
+from random import randint
 
 def bozosort (items):
  	while not sorted(items) == items:
- 		shuffle (items)
+ 		switch(items)
  	return items
 
-starting_list = input("Enter a list: \n")
-# starting_list = [100,2]
-print (bozosort(starting_list))
+def switch(items):
+ 	num1 = randint(0, len(items) - 1)
+ 	num2 = randint(0, len(items) - 1)
+ 	items[num1], items[num2] = items[num2], items[num1]
+ 	return items
 
-end_time = time.time() * MILLISECONDS
-
-def print_runtime():
-	runtime = end_time - start_time
-	if runtime > 1000:
-		print(str(runtime / 1000) + " seconds")
-	else:
-		print(str(runtime) + " milliseconds")
-
-print_runtime()
+items = [2,1,2,5]
+print bozosort(items)
