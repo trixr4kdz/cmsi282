@@ -10,6 +10,3 @@ def switch(items):
  	num2 = randint(0, len(items) - 1)
  	items[num1], items[num2] = items[num2], items[num1]
  	return items
-
-items = [2,1,2,5]
-print bozosort(items)
