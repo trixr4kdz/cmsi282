@@ -8,7 +8,3 @@ def verify(N, e, Md, M):
 
 def sign(M, d, N):
 	return M**d % N
-
-def print_orig_message(N, e, d, M):
-	print '(M^d)^e = ' + str((M ** d) ** e % N)
-	print 'MmodN = ' + str (M % N)
