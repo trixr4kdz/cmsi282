@@ -29,14 +29,12 @@
 			\\
 			
 		\item
-			Code is in GitHub repo
-			\\
+			Code "autokey\_vigenere.py" is in GitHub repo
 			
 		\item
 			The original message is: \\
 			LET US CHANGE OUR TRADITIONAL ATTITUDE TO THE CONSTRUCTION OF PROGRAMS INSTEAD OF IMAGINING THAT OUR MAIN TASK IS TO INSTRUCT A COMPUTER WHAT TO DO LET US CONCENTRATE RATHER ON EXPLAINING TO HUMAN BEINGS WHAT WE WANT A COMPUTER TO DO
 			\\
-			
 			Mapping:
 			\begin{tabular} {| c  c | c  c |}
 				\hline
@@ -80,7 +78,7 @@
 		\item
 			(1.45) 
 			\\
-			(a) We would want digital signatures so that we do not have to rely on paper documents and still have a way to ensure that the intended person was the actual sender. Since the digital signatures would be unique to the person (by having a function that takes in their own secret key along with the message) which would simulate how each person has their own unique handwritten signature, there would be no need for the other party to have a paper copy of the file. There is no need to sign a paper by hand and then mail it or bring it in person since the signature would be produced electronically. The verify algorithm would then ensure that a third party isn't producing the documents since that would mean using invalid signatures.
+			(a) We would want digital signatures so that we do not have to rely on paper documents but still have a way to ensure that the intended person was the actual sender. Since the digital signatures would be unique to the person (by having a function that takes in their own secret key along with the message) which would simulate how each person has their own unique handwritten signature, there would be no need for the other party to have a paper copy of the file. The verify algorithm would then ensure that a third party isn't producing the documents since that would mean using invalid signatures.
 			\\ \\
 			(b) Since d is the inverse mod of e, $de(mod N) \equiv 1 mod N = 1$: \\
         			Given $sign(M,d) = M^d(modN)$, $(N,e)$, and $M$. Since we know that $M^d \equiv M^d(modN)$, anyone who has the signature $M^d$ and the actual message $M$ can verify the signature by simply raising the signature to the power of $e$ and confirming that the original message modN is the result, $(M^{d})^{e} \equiv M(modN)$.
@@ -93,10 +91,10 @@
 			The mapping of the letters of the name to values in $[0,1,...,N-1]$ is random such that: \\
 			name\_map = \{'T':20,'R':168,'I':131,'X':459,'E':2000,'O':765,'Q':1007,'U':313\} \\
 			so T $\rightarrow$ $20 = m_1$. Then $sign(m_1,d) = m_1^dmodN = 20^{2085}(mod 2599) = 2330$ 	\\
-			To check: $(m_1^dmodN)^e$ = $m_1^1modN$ = $m_1modN$ so $(20^{2085}mod2599)^{13} = 20^1mod2599 = 20$
+			To check: $(m_1^d)^emodN$ = $m_1^1modN$ = $m_1modN$ so $(20^{2085}mod2599)^{13} = 20^1mod2599 = 20$
 			\\ \\
 			(d) p = 17, q = 23, e = 17 \\
-			Then L = (p-1)(q-1) = 352 \\
+			Then for some number L = (p-1)(q-1) = 352 \\
 			Then to find the secret key $d$ to raise the message to, we have to make use of the property $de \equiv1(modL) = 145(mod352)$.
 			So Eve should raise it to the 145th power.
 			\\
@@ -125,16 +123,17 @@
 				&= 2(2^2T(n-2)-1)+3)+1 = 2^3T(n-3) + (2*3) + 1 \\
 				... \\
 				... \\
-				&= 2^{n-2}T(n-(n-2)-1)+2(n-2)+1=2{n-2}T(1)+2n-3 \\
+				&= 2^{n-2}T(n-(n-2)-1)+2(n-2)+1=2^{n-2}T(1)+2n-3 \\
 				&=2^nT(1)+2n
 			\end{align*}
-			so the complexity for B is $O(2^n)$\\
+			\begin{center} so the complexity for B is $O(2^n)$
+			\end {center}
 			(c) Recurrence Relation C: $T(n) = 9T(\frac{n}{3}) + n^2$. So since $log_ba = log_39 = 2 = d$, using the Master Theorem yields
 			\begin{align*}
 			O(n^{log_39}) = O(n^{2}logn)
 			\end{align*}
 
-			I will pick Algorithm C since its complexity is less than both A and B
+			I will pick Algorithm C since its complexity is less than both A and B for large values of n
 			\\
 			
 		\item
@@ -161,11 +160,12 @@
 			\\
 		
 		\item
-			(3.8) (a) We can model this problem using a depth-first search tree. A depth-first tree is a connected graph with no circuits and that visits portions of a graph from a given vertex; if it is not possible to move to a node at a lower level, we can backtrack to another portion and visit those nodes. In this problem, we want to explore the states we will have by transferring the contents of one container to another. The root node will be the initial state of the containers (in this case, we define state as the amount of water in each) (i.e. [(10,0),(7,7),(4,4)] for the 10- , 7-, 4- pint containers respectively). The children of the parent nodes will be the states of the container after the contents of a specific container have been changed (containers can be filled, emptied, or contents be transferred). The last node created from the tree (the leaf) will have the state that we want the containers to be in so that one of the containers has the amount we want (that is, 2 pints). A question we can ask for a depth-first search tree is how many steps can we make in order to get to the desired state.\\ How many different paths can we take in order to get to the goal state.\\
-			(b) \\
-			(c) Python implementation "water\_problem.py" is in GitHub repo (Note: this program is taken from https://github.com/jamescooke/water-pouring-python)\\
-			\\
-
+			(3.8) (a) We can model this problem using a depth-first search tree where we always visit one child per step and backtracking only when we can no longer visit a child. In this problem, we want to explore the possible states by transferring the contents of one container to another. The root node will be the initial state of the containers (in this case, we define state as the amount of water in each i.e. [0,7,4] for the 10- , 7-, 4- pint containers respectively). The children of the parent nodes will be the states after the contents of a specific container have been changed (containers can be filled, emptied, or contents be transferred). The question that needs to be answered is: is there a path from the initial state to a state where one container has 2 pints.
+			\\ \\
+			(b) An algorithm to solve this problem is to first check if the goal has been met, if not, pour the contents of a non-empty container to a container that is not full. Then recurse until you are about to visit a state that you have already encountered. Then backtrack (move from child to parent) to the state that would make it possible to make a new state and recurse.\\ \\
+			(c) Sizes of containers in order: [10-pint, 7-pint, 4-pint] \\
+			States: [0, 7, 4] $\rightarrow$ [7, 0, 4] $\rightarrow$ [10, 0, 1] $\rightarrow$ [10, 1, 0] $\rightarrow$ [6, 1, 4] $\rightarrow$ [6, 5, 0] $\rightarrow$ [2, 5, 4] \\
+			Python implementation "water\_problem.py" is in GitHub repo (Note: this program is taken from https://github.com/jamescooke/water-pouring-python)\\
 	\end{enumerate}
 
 \end{document}

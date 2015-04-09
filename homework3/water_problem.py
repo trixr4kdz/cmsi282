@@ -36,7 +36,7 @@ class Cup(object):
         )
 
     def __repr__(self):
-    	return "<Cup {}/{}>".format(self.contents, self.capacity)
+    	return "{}".format(self.contents)
 
 import copy
 from functools import reduce
@@ -44,27 +44,22 @@ from functools import reduce
 or_reduction = lambda x, y: x or y
 and_reduction = lambda x, y: x and y
 
-
 class Game(object):
 
     cups = None
-    parent = None       # Game that created this one
+    parent = None       
     children = None
 
     def __init__(self, sizes=None, parent=None):
         self.cups = []
 
         if sizes is None:
-            # Set up cups with default sizes
             sizes = [(10, 0), (7, 7), (4, 4)]
 
         for cap, cont in sizes:
             self.cups.append(Cup(cap=cap, cont=cont))
 
-        # Save a pointer to the parent
         self.parent = parent
-
-        # Children starts empty
         self.children = []
 
     def is_goal(self):
@@ -121,17 +116,14 @@ class Game(object):
         if self.is_goal():
             self.print_trace()
             return True
-
         if self.make_children() == 0:
             return False
-
         return self.solvable_child()
 
     def solvable_child(self):
         for child in self.children:
             if child.is_solvable():
                 return True
-
         return False
 
     def print_trace(self):
@@ -139,5 +131,4 @@ class Game(object):
             self.parent.print_trace()
         print(self.cups)
 
-Game()
-print_trace()
+Game().is_solvable()
