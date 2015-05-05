@@ -6,14 +6,14 @@ public class SubsetSum {
  
     public static void main(String[] args) {
 
-        if(args.length < 1) {
+        if (args.length < 1) {
             System.out.println(errorMessage());
             return;
         }
         for (int i = 0; i < args.length; i ++) {
             int valueCheck = 0;
 
-            if(Integer.parseInt(args[i]) < 0) {
+            if (Integer.parseInt(args[i]) < 0) {
                 System.out.println(errorMessage());
                 return;
             }
@@ -32,7 +32,7 @@ public class SubsetSum {
         if (args.length == 1 && 0 == Integer.parseInt(args[0])) {
             System.out.println("true");
             return;
-        } else if(args.length == 1 && Integer.parseInt(args[0]) != 0) {
+        } else if (args.length == 1 && Integer.parseInt(args[0]) != 0) {
             System.out.println("false");
             return;
         }
@@ -40,7 +40,7 @@ public class SubsetSum {
         int[] arrayOfNumbers = new int[args.length - 1];
         int sumValue = Integer.parseInt(args[args.length - 1]);
 
-        for(int i = 0; i < arrayOfNumbers.length; i++) {
+        for (int i = 0; i < arrayOfNumbers.length; i++) {
             arrayOfNumbers[i] = Integer.parseInt(args[i]);
         }
 
@@ -63,7 +63,7 @@ public class SubsetSum {
         }
         
         for (int i = 1; i <= sum; i++ ) {
-            for( int j = 1; j <= len; j++ ) {
+            for (int j = 1; j <= len; j++ ) {
                 table[i][j] = table[i][j-1]; 
                 
                 if (!table[i][j] && i >= numberArray[j-1]) {
